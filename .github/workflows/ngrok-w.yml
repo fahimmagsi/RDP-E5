@@ -29,5 +29,8 @@ jobs:
 
     - run: Set-LocalUser -Name "runneradmin" -Password (ConvertTo-SecureString -AsPlainText "P@ssw0rd!" -Force)
 
+    - name: Kill existing RDP sessions
+      run: quser /server:localhost && taskkill /f /im "mstsc.exe"
+
     - name: Create Tunnel
       run: .\ngrok\ngrok.exe tcp --region=eu 3389
